@@ -28,7 +28,7 @@ app.post("/form", function (req, res) {
         catch (e) {
             return res.status(500).send("An error occured");
         }
-        console.log(req.body);
+        return res.status(200).send("Success!");
     });
 });
 app.listen(Number(process.env.PORT) || 3000, "0.0.0.0", () => console.log("Server running"));
