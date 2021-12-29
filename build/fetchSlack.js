@@ -31,7 +31,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.fetchSlack = void 0;
 const Slack = __importStar(require("typed-slack"));
 exports.fetchSlack = (msg) => __awaiter(void 0, void 0, void 0, function* () {
-    let slack = new Slack.IncomingWebhook("https://hooks.slack.com/services/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");
+    let slack = new Slack.IncomingWebhook(`${process.env.SLACK_URL}`);
     slack
         .send({ text: msg })
         .then((e) => {
