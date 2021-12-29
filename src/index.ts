@@ -1,8 +1,7 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import { fetchSlack } from "./fetchSlack";
 
-const app = express();
-const port = 8000;
+let app = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(
@@ -11,8 +10,8 @@ app.use(
   })
 );
 
-app.post("/form", async function (req, res) {
-  const msg: string = `Name: ${req.body.name} \nEmail: ${req.body.email} \nMessage: ${req.body.message}`;
+app.post("/form", async function (req: Request, res: Response) {
+  let msg: string = `Name: ${req.body.name} \nEmail: ${req.body.email} \nMessage: ${req.body.message}`;
   try {
     await fetchSlack(msg);
   } catch (e) {
@@ -21,6 +20,6 @@ app.post("/form", async function (req, res) {
   console.log(req.body);
 });
 
-app.listen(port, () => {
-  console.log(`⚡️[server]: Server is running at https://localhost:${port}`);
-});
+app.listen(Number(process.env.PORT) || 3000, "0.0.0.0", () =>
+  console.log("Server running")
+);
